@@ -41,9 +41,30 @@ public class AppInitializer {
     }
 
     public static void addNewStudent() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("-----------------------------------------------------------------------------------------");
         System.out.println("|\t\t\t\tADD NEW STUDENT\t\t\t\t\t\t|");
-        System.out.println("-----------------------------------------------------------------------------------------\n");
+        System.out.println("-----------------------------------------------------------------------------------------\n\n");
+
+        System.out.print("Enter Student ID    : ");
+        String id = scanner.next();
+        System.out.print("Enter Student Name  : ");
+        String name = scanner.next();
+
+        System.out.println("Student has been added successfully. Do you want to add a new student (Y/n): ");
+        String operate = scanner.next();
+        if (operate.equals("n")) {
+            clearConsole();
+
+            dashboardMenu();
+        } else if (operate.equals("Y")) {
+            clearConsole();
+            addNewStudent();
+        }else if (operate.equals("y")) {
+            clearConsole();
+            addNewStudent();
+        }
+
     }
 
     public final static void clearConsole() {
