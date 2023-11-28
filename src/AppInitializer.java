@@ -8,9 +8,11 @@ import java.util.Scanner;
 public class AppInitializer {
     public static void main(String[] args) {
         String[][] student = new String[100][2];
+        int[][] studentMarks = new int[100][2];
 
         int i = 0;
         while (true) {
+            clearConsole();
             Scanner scanner = new Scanner(System.in);
             System.out.println("-------------------------------------------------------------------------------------------------");
             System.out.println("|\t\t\tWELCOME TO GDSE MARKS MANAGEMENT SYSTEM \t\t\t\t|");
@@ -33,12 +35,14 @@ public class AppInitializer {
                     clearConsole();
                     addNewStudent(student, i);
                     break;
-                default:
+                case 2:
                     clearConsole();
+                    addNewStudentWithMarks(student,studentMarks, i);
                     break;
             }
         }
     }
+
 
     public static boolean checkDuplicate(String[][] student, String id) {
         for (int i = 0; i < student.length; i++) {
@@ -53,7 +57,7 @@ public class AppInitializer {
         Scanner scanner = new Scanner(System.in);
         System.out.println("-----------------------------------------------------------------------------------------");
         System.out.println("|\t\t\t\tADD NEW STUDENT\t\t\t\t\t\t|");
-        System.out.println("-----------------------------------------------------------------------------------------\n\n");
+        System.out.println("-----------------------------------------------------------------------------------------\n");
 
         System.out.print("Enter Student ID    : ");
         String id = scanner.next();
@@ -71,7 +75,7 @@ public class AppInitializer {
         student[i][0] = id;
         student[i][1] = name;
         i++;
-        System.out.println("Student has been added successfully. Do you want to add a new student (Y/n): ");
+        System.out.println("\nStudent has been added successfully. Do you want to add a new student (Y/n): ");
         String operate = scanner.next();
         if (operate.equals("n")) {
             clearConsole();
@@ -82,6 +86,63 @@ public class AppInitializer {
             clearConsole();
             addNewStudent(student, i);
         }
+    }
+
+    private static void addNewStudentWithMarks(String[][] student,int[][]marks, int i) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("|\t\t\tADD NEW STUDENT WITH MARKS\t\t\t\t\t|");
+        System.out.println("-----------------------------------------------------------------------------------------\n");
+
+        System.out.print("Enter Student ID    : ");
+        String id = scanner.next();
+        boolean isDuplicate = checkDuplicate(student, id);
+        while (isDuplicate) {
+            System.out.println("The Student ID already exists\n");
+            System.out.print("Enter Student ID    : ");
+            id = scanner.next();
+            isDuplicate = checkDuplicate(student, id);
+        }
+
+        System.out.print("Enter Student Name  : ");
+        String name = scanner.next();
+
+        student[i][0] = id;
+        student[i][1] = name;
+
+        System.out.println();
+        System.out.print("Programming Fundamentals marks    :");
+        marks[i][0]=scanner.nextInt();
+        while(marks[i][0]<0 || marks[i][0]>100){
+            System.out.print("Invalid marks. please enter correct marks.\n");
+            System.out.println();
+            System.out.print("Programming Fundamentals marks    :");
+            marks[i][0]=scanner.nextInt();
+        }
+
+        System.out.print("Databases Management Systems marks :");
+        marks[i][1]=scanner.nextInt();
+        while(marks[i][1]<0 || marks[i][1]>100){
+            System.out.print("Invalid marks. please enter correct marks.\n");
+            System.out.println();
+            System.out.print("Databases Management Systems marks :");
+            marks[i][1]=scanner.nextInt();
+        }
+
+        i++;
+
+        System.out.println("\nStudent has been added successfully. Do you want to add a new student (Y/n): ");
+        String operate = scanner.next();
+        if (operate.equals("n")) {
+            clearConsole();
+        } else if (operate.equals("Y")) {
+            clearConsole();
+            addNewStudentWithMarks(student,marks, i);
+        } else if (operate.equals("y")) {
+            clearConsole();
+            addNewStudentWithMarks(student,marks, i);
+        }
+
     }
 
     public final static void clearConsole() {
