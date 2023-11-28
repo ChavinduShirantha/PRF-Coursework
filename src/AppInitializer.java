@@ -7,40 +7,38 @@ import java.util.Scanner;
 
 public class AppInitializer {
     public static void main(String[] args) {
-        dashboardMenu();
-    }
+        String[][] student=new String[100][2];
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("-------------------------------------------------------------------------------------------------");
+            System.out.println("|\t\t\tWELCOME TO GDSE MARKS MANAGEMENT SYSTEM \t\t\t\t|");
+            System.out.println("-------------------------------------------------------------------------------------------------\n");
+            System.out.print("[1] Add New Student");
+            System.out.println("\t\t\t\t\t[2] Add New Student With Marks");
+            System.out.print("[3] Add Marks");
+            System.out.println("\t\t\t\t\t\t[4] Update Student Details");
+            System.out.print("[5] Update Marks");
+            System.out.println("\t\t\t\t\t[6] Delete Student");
+            System.out.print("[7] Print Student Details");
+            System.out.println("\t\t\t\t[8] Print Student Ranks");
+            System.out.print("[9] Best in Programming Fundamentals");
+            System.out.println("\t\t\t[10] Best in Database Management Systems\n");
+            System.out.print("Enter an option to continue > ");
+            int option = scanner.nextInt();
 
-    public static void dashboardMenu() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("-------------------------------------------------------------------------------------------------");
-        System.out.println("|\t\t\tWELCOME TO GDSE MARKS MANAGEMENT SYSTEM \t\t\t\t|");
-        System.out.println("-------------------------------------------------------------------------------------------------\n");
-        System.out.print("[1] Add New Student");
-        System.out.println("\t\t\t\t\t[2] Add New Student With Marks");
-        System.out.print("[3] Add Marks");
-        System.out.println("\t\t\t\t\t\t[4] Update Student Details");
-        System.out.print("[5] Update Marks");
-        System.out.println("\t\t\t\t\t[6] Delete Student");
-        System.out.print("[7] Print Student Details");
-        System.out.println("\t\t\t\t[8] Print Student Ranks");
-        System.out.print("[9] Best in Programming Fundamentals");
-        System.out.println("\t\t\t[10] Best in Database Management Systems\n");
-        System.out.print("Enter an option to continue > ");
-        int option = scanner.nextInt();
-
-        switch (option) {
-            case 1:
-                clearConsole();
-                addNewStudent();
-                break;
-            default:
-                clearConsole();
-                dashboardMenu();
-                break;
+            switch (option) {
+                case 1:
+                    clearConsole();
+                    addNewStudent(student);
+                    break;
+                default:
+                    clearConsole();
+                    break;
+            }
         }
     }
 
-    public static void addNewStudent() {
+    public static void addNewStudent(String student[][]) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("-----------------------------------------------------------------------------------------");
         System.out.println("|\t\t\t\tADD NEW STUDENT\t\t\t\t\t\t|");
@@ -55,14 +53,12 @@ public class AppInitializer {
         String operate = scanner.next();
         if (operate.equals("n")) {
             clearConsole();
-
-            dashboardMenu();
         } else if (operate.equals("Y")) {
             clearConsole();
-            addNewStudent();
+            addNewStudent(student);
         }else if (operate.equals("y")) {
             clearConsole();
-            addNewStudent();
+            addNewStudent(student);
         }
 
     }
