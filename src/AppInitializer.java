@@ -47,6 +47,10 @@ public class AppInitializer {
                     clearConsole();
                     updateStudentDetails(student);
                     break;
+                case 5:
+                    clearConsole();
+                    updateStudentMarks(student, studentMarks);
+                    break;
             }
         }
     }
@@ -290,6 +294,87 @@ public class AppInitializer {
         }
     }
 
+    public static void updateStudentMarks(String[][] student, int[][] studentMarks) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("|\t\t\t\t\tUPDATE MARKS\t\t\t\t\t|");
+        System.out.println("-----------------------------------------------------------------------------------------\n");
+
+        System.out.print("Enter Student ID    : ");
+        String id = scanner.next();
+        boolean isDuplicate = checkDuplicate(student, id);
+
+        int index = 0;
+        if (isDuplicate) {
+            for (int j = 0; j < student.length; j++) {
+                while (id.equals(student[j][0])) {
+                    index = j;
+                    break;
+                }
+            }
+
+            if (studentMarks[index][0] == 0 && studentMarks[index][1] == 0){
+
+                System.out.println("Student Name  : " + student[index][1]);
+                System.out.println("This student's marks yet to be added.\nDo you want to update the marks of another student? (Y/n) ");
+                char operate = scanner.next().charAt(0);
+                if (operate == 'y') {
+                    clearConsole();
+                    updateStudentMarks(student, studentMarks);
+                } else if (operate == 'Y') {
+                    clearConsole();
+                    updateStudentMarks(student, studentMarks);
+                } else if (operate == 'n') {
+
+                }
+            } else{
+
+                System.out.println("Student Name  : " + student[index][1]);
+                System.out.println();
+                System.out.println("Programming Fundamentals Marks   : " + studentMarks[index][0]);
+                System.out.println("Database Management System Marks : " + studentMarks[index][1]);
+                System.out.println("\n");
+
+                System.out.print("Enter New Programming Fundamentals marks    : ");
+                studentMarks[index][0] = scanner.nextInt();
+                while (studentMarks[index][0] < 0 || studentMarks[index][0] > 100) {
+                    System.out.println("Invalid marks. please enter correct marks.\n");
+                    System.out.print("Enter New Programming Fundamentals marks    : ");
+                    studentMarks[index][0] = scanner.nextInt();
+                }
+                System.out.print("Enter Databases Management System marks : ");
+                studentMarks[index][1] = scanner.nextInt();
+                while (studentMarks[index][1] < 0 || studentMarks[index][1] > 100) {
+                    System.out.println("Invalid marks. please enter correct marks.\n");
+                    System.out.print("Enter New Databases Management System marks : ");
+                    studentMarks[index][1] = scanner.nextInt();
+                }
+                System.out.print("Marks has been update successfully.\nDo you add marks for another student? (Y/n): ");
+                char operate = scanner.next().charAt(0);
+                if (operate == 'y') {
+                    clearConsole();
+                    updateStudentMarks(student, studentMarks);
+                } else if (operate == 'Y') {
+                    clearConsole();
+                    updateStudentMarks(student, studentMarks);
+                } else if (operate == 'n') {
+                    clearConsole();
+                }
+            }
+        } else {
+            System.out.print("Invalid Student ID. Do you want to search again? (Y/n): ");
+            char operate = scanner.next().charAt(0);
+            if (operate == 'y') {
+                clearConsole();
+                updateStudentMarks(student, studentMarks);
+            } else if (operate == 'Y') {
+                clearConsole();
+                updateStudentMarks(student, studentMarks);
+            } else if (operate == 'n') {
+                clearConsole();
+            }
+        }
+    }
 
     public final static void clearConsole() {
         try {
