@@ -43,6 +43,10 @@ public class AppInitializer {
                     clearConsole();
                     addStudentMarks(student, studentMarks);
                     break;
+                case 4:
+                    clearConsole();
+                    updateStudentDetails(student);
+                    break;
             }
         }
     }
@@ -171,7 +175,7 @@ public class AppInitializer {
 
             if (studentMarks[index][0] > 0 && studentMarks[index][1] > 0) {
 
-                System.out.println("Enter Student Name  : " + student[index][1]);
+                System.out.println("Student Name  : " + student[index][1]);
                 System.out.println("This student's marks have be already added.\nIf you want to update the marks, please use [4] Update Marks option.");
                 System.out.println();
                 System.out.print("Do you add marks for another student? (Y/n): ");
@@ -187,7 +191,7 @@ public class AppInitializer {
                 }
             } else if (studentMarks[index][0] == 0 && studentMarks[index][1] == 0) {
 
-                System.out.println("Enter Student Name  : " + student[index][1]);
+                System.out.println("Student Name  : " + student[index][1]);
                 System.out.println();
                 System.out.print("Programming Fundamentals marks    : ");
                 studentMarks[index][0] = scanner.nextInt();
@@ -230,6 +234,62 @@ public class AppInitializer {
         }
 
     }
+
+    public static void updateStudentDetails(String[][] student) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("|\t\t\t\tUPDATE STUDENT DETAILS\t\t\t\t\t|");
+        System.out.println("-----------------------------------------------------------------------------------------\n");
+
+        System.out.print("Enter Student ID    : ");
+        String id = scanner.next();
+        boolean isDuplicate = checkDuplicate(student, id);
+
+        int index = 0;
+
+        if (isDuplicate) {
+            for (int j = 0; j < student.length; j++) {
+                while (id.equals(student[j][0])) {
+                    index = j;
+                    break;
+                }
+            }
+
+            System.out.println("Student Name  : " + student[index][1]);
+            System.out.println();
+
+            System.out.print("Enter the new Student Name  : ");
+            student[index][1] = scanner.next();
+            System.out.println();
+
+            System.out.print("Student details has been updated successfully.\nDo you want to update another student details? (Y/n): ");
+
+            char operate = scanner.next().charAt(0);
+
+            if (operate == 'y') {
+                clearConsole();
+                updateStudentDetails(student);
+            } else if (operate == 'Y') {
+                clearConsole();
+                updateStudentDetails(student);
+            } else if (operate == 'n') {
+                clearConsole();
+            }
+        } else {
+            System.out.print("Invalid Student ID. Do you want to search again? (Y/n): ");
+            char operate = scanner.next().charAt(0);
+            if (operate == 'y') {
+                clearConsole();
+
+            } else if (operate == 'Y') {
+                clearConsole();
+
+            } else if (operate == 'n') {
+                clearConsole();
+            }
+        }
+    }
+
 
     public final static void clearConsole() {
         try {
