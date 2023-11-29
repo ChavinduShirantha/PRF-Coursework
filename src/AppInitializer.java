@@ -37,7 +37,11 @@ public class AppInitializer {
                     break;
                 case 2:
                     clearConsole();
-                    addNewStudentWithMarks(student,studentMarks, i);
+                    addNewStudentWithMarks(student, studentMarks, i);
+                    break;
+                case 3:
+                    clearConsole();
+                    addStudentMarks(student, studentMarks);
                     break;
             }
         }
@@ -88,7 +92,7 @@ public class AppInitializer {
         }
     }
 
-    private static void addNewStudentWithMarks(String[][] student,int[][]marks, int i) {
+    public static void addNewStudentWithMarks(String[][] student, int[][] marks, int i) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("-----------------------------------------------------------------------------------------");
         System.out.println("|\t\t\tADD NEW STUDENT WITH MARKS\t\t\t\t\t|");
@@ -112,21 +116,21 @@ public class AppInitializer {
 
         System.out.println();
         System.out.print("Programming Fundamentals marks    :");
-        marks[i][0]=scanner.nextInt();
-        while(marks[i][0]<0 || marks[i][0]>100){
+        marks[i][0] = scanner.nextInt();
+        while (marks[i][0] < 0 || marks[i][0] > 100) {
             System.out.print("Invalid marks. please enter correct marks.\n");
             System.out.println();
             System.out.print("Programming Fundamentals marks    :");
-            marks[i][0]=scanner.nextInt();
+            marks[i][0] = scanner.nextInt();
         }
 
         System.out.print("Databases Management Systems marks :");
-        marks[i][1]=scanner.nextInt();
-        while(marks[i][1]<0 || marks[i][1]>100){
+        marks[i][1] = scanner.nextInt();
+        while (marks[i][1] < 0 || marks[i][1] > 100) {
             System.out.print("Invalid marks. please enter correct marks.\n");
             System.out.println();
             System.out.print("Databases Management Systems marks :");
-            marks[i][1]=scanner.nextInt();
+            marks[i][1] = scanner.nextInt();
         }
 
         i++;
@@ -137,10 +141,92 @@ public class AppInitializer {
             clearConsole();
         } else if (operate.equals("Y")) {
             clearConsole();
-            addNewStudentWithMarks(student,marks, i);
+            addNewStudentWithMarks(student, marks, i);
         } else if (operate.equals("y")) {
             clearConsole();
-            addNewStudentWithMarks(student,marks, i);
+            addNewStudentWithMarks(student, marks, i);
+        }
+
+    }
+
+    public static void addStudentMarks(String[][] student, int[][] studentMarks) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("|\t\t\t\t\tADD MARKS\t\t\t\t\t|");
+        System.out.println("-----------------------------------------------------------------------------------------\n");
+
+        System.out.print("Enter Student ID    : ");
+        String id = scanner.next();
+        boolean isDuplicate = checkDuplicate(student, id);
+
+        int index = 0;
+
+        if (isDuplicate) {
+            for (int j = 0; j < student.length; j++) {
+                while (id.equals(student[j][0])) {
+                    index = j;
+                    break;
+                }
+            }
+
+            if (studentMarks[index][0] > 0 && studentMarks[index][1] > 0) {
+
+                System.out.println("Enter Student Name  : " + student[index][1]);
+                System.out.println("This student's marks have be already added.\nIf you want to update the marks, please use [4] Update Marks option.");
+                System.out.println();
+                System.out.print("Do you add marks for another student? (Y/n): ");
+                char operate = scanner.next().charAt(0);
+                if (operate == 'y') {
+                    clearConsole();
+                    addStudentMarks(student, studentMarks);
+                } else if (operate == 'Y') {
+                    clearConsole();
+                    addStudentMarks(student, studentMarks);
+                } else if (operate == 'n') {
+
+                }
+            } else if (studentMarks[index][0] == 0 && studentMarks[index][1] == 0) {
+
+                System.out.println("Enter Student Name  : " + student[index][1]);
+                System.out.println();
+                System.out.print("Programming Fundamentals marks    : ");
+                studentMarks[index][0] = scanner.nextInt();
+                while (studentMarks[index][0] < 0 || studentMarks[index][0] > 100) {
+                    System.out.println("Invalid marks. please enter correct marks.\n");
+                    System.out.print("Programming Fundamentals marks    : ");
+                    studentMarks[index][0] = scanner.nextInt();
+                }
+                System.out.print("Databases Management System marks : ");
+                studentMarks[index][1] = scanner.nextInt();
+                while (studentMarks[index][1] < 0 || studentMarks[index][1] > 100) {
+                    System.out.println("Invalid marks. please enter correct marks.\n");
+                    System.out.print("Databases Management System marks : ");
+                    studentMarks[index][1] = scanner.nextInt();
+                }
+                System.out.print("Do you add marks for another student? (Y/n): ");
+                char operate = scanner.next().charAt(0);
+                if (operate == 'y') {
+                    clearConsole();
+                    addStudentMarks(student, studentMarks);
+                } else if (operate == 'Y') {
+                    clearConsole();
+                    addStudentMarks(student, studentMarks);
+                } else if (operate == 'n') {
+                    clearConsole();
+                }
+            } else {
+                System.out.print("Invalid Student ID. Do you want to search again? (Y/n): ");
+                char operate = scanner.next().charAt(0);
+                if (operate == 'y') {
+                    clearConsole();
+                    addStudentMarks(student, studentMarks);
+                } else if (operate == 'Y') {
+                    clearConsole();
+                    addStudentMarks(student, studentMarks);
+                } else if (operate == 'n') {
+                    clearConsole();
+                }
+            }
         }
 
     }
