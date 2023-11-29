@@ -51,6 +51,10 @@ public class AppInitializer {
                     clearConsole();
                     updateStudentMarks(student, studentMarks);
                     break;
+                case 6:
+                    clearConsole();
+                    deleteStudent(student, studentMarks);
+                    break;
             }
         }
     }
@@ -313,7 +317,7 @@ public class AppInitializer {
                 }
             }
 
-            if (studentMarks[index][0] == 0 && studentMarks[index][1] == 0){
+            if (studentMarks[index][0] == 0 && studentMarks[index][1] == 0) {
 
                 System.out.println("Student Name  : " + student[index][1]);
                 System.out.println("This student's marks yet to be added.\nDo you want to update the marks of another student? (Y/n) ");
@@ -327,7 +331,7 @@ public class AppInitializer {
                 } else if (operate == 'n') {
 
                 }
-            } else{
+            } else {
 
                 System.out.println("Student Name  : " + student[index][1]);
                 System.out.println();
@@ -370,6 +374,56 @@ public class AppInitializer {
             } else if (operate == 'Y') {
                 clearConsole();
                 updateStudentMarks(student, studentMarks);
+            } else if (operate == 'n') {
+                clearConsole();
+            }
+        }
+    }
+
+    public static void deleteStudent(String[][] student, int[][] studentMarks) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("|\t\t\t\t\tDELETE STUDENT\t\t\t\t\t|");
+        System.out.println("-----------------------------------------------------------------------------------------\n");
+
+        System.out.print("Enter Student ID    : ");
+        String id = scanner.next();
+        boolean isDuplicate = checkDuplicate(student, id);
+
+        int index = 0;
+        if (isDuplicate) {
+            for (int j = 0; j < student.length; j++) {
+                while (id.equals(student[j][0])) {
+                    index = j;
+                    break;
+                }
+            }
+
+            student[index][0]=null;
+            student[index][1]=null;
+            studentMarks[index][0]=0;
+            studentMarks[index][1]=0;
+
+            System.out.println("Student has been Deleted successfully.\nDo you want to deleted another student? (Y/n) ");
+            char operate = scanner.next().charAt(0);
+            if (operate == 'y') {
+                clearConsole();
+                deleteStudent(student, studentMarks);
+            } else if (operate == 'Y') {
+                clearConsole();
+                deleteStudent(student, studentMarks);
+            } else if (operate == 'n') {
+
+            }
+        } else {
+            System.out.print("Invalid Student ID. Do you want to search again? (Y/n): ");
+            char operate = scanner.next().charAt(0);
+            if (operate == 'y') {
+                clearConsole();
+                deleteStudent(student, studentMarks);
+            } else if (operate == 'Y') {
+                clearConsole();
+                deleteStudent(student, studentMarks);
             } else if (operate == 'n') {
                 clearConsole();
             }
