@@ -69,62 +69,11 @@ public class AppInitializer {
                     clearConsole();
                     printBestInPrf(student, studentMarks, total);
                     break;
+                case 10:
+                    clearConsole();
+                    printBestInDbms(student, studentMarks, total);
+                    break;
             }
-        }
-    }
-
-    public static void printBestInPrf(String[][] student, int[][] studentMarks, int[] total) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("-----------------------------------------------------------------------------------------");
-        System.out.println("|\t\t\t\tBEST IN PROGRAMMING FUNDAMENTALS\t\t\t|");
-        System.out.println("-----------------------------------------------------------------------------------------\n");
-
-        for (int j = 0; j < studentMarks.length; j++) {
-            for (int i = studentMarks.length - 1; 0 < i; i--) {
-                if (studentMarks[i - 1][0] < studentMarks[i][0]) {
-                    int tempPrf = studentMarks[i - 1][0];
-                    studentMarks[i - 1][0] = studentMarks[i][0];
-                    studentMarks[i][0] = tempPrf;
-
-                    int tempDbms = studentMarks[i - 1][1];
-                    studentMarks[i - 1][1] = studentMarks[i][1];
-                    studentMarks[i][1] = tempDbms;
-
-                    String tempId = student[i - 1][0];
-                    student[i - 1][0] = student[i][0];
-                    student[i][0] = tempId;
-
-                    String tempName = student[i - 1][1];
-                    student[i - 1][1] = student[i][1];
-                    student[i][1] = tempName;
-
-                    int tempTot = total[i - 1];
-                    total[i - 1] = total[i];
-                    total[i] = tempTot;
-                }
-            }
-        }
-        System.out.println("+-------+----------------------------------------------------------------+-----------+----------+");
-        System.out.println("|ID     |Name                                                            |PF Marks   |DBMS Marks|");
-        System.out.println("+-------+----------------------------------------------------------------+-----------+----------+");
-        for (int j = 0; j < student.length; j++) {
-            if (total[j] != 0) {
-                System.out.println("|" + student[j][0] + "   |" + student[j][1] + "\t\t\t\t\t\t\t\t |" + studentMarks[j][0] + "         |" + studentMarks[j][1] + "        |");
-            }
-        }
-        System.out.println("+-------+----------------------------------------------------------------+-----------+----------+");
-
-        System.out.print("Do you want to go back main menu? (Y/n) ");
-        char operate = scanner.next().charAt(0);
-        if (operate == 'y') {
-            clearConsole();
-
-        } else if (operate == 'Y') {
-            clearConsole();
-
-        } else if (operate == 'n') {
-            clearConsole();
-            printBestInPrf(student, studentMarks, total);
         }
     }
 
@@ -711,6 +660,115 @@ public class AppInitializer {
 
     }
 
+    public static void printBestInPrf(String[][] student, int[][] studentMarks, int[] total) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("|\t\t\t\tBEST IN PROGRAMMING FUNDAMENTALS\t\t\t|");
+        System.out.println("-----------------------------------------------------------------------------------------\n");
+
+        for (int j = 0; j < studentMarks.length; j++) {
+            for (int i = studentMarks.length - 1; 0 < i; i--) {
+                if (studentMarks[i - 1][0] < studentMarks[i][0]) {
+                    int tempPrf = studentMarks[i - 1][0];
+                    studentMarks[i - 1][0] = studentMarks[i][0];
+                    studentMarks[i][0] = tempPrf;
+
+                    int tempDbms = studentMarks[i - 1][1];
+                    studentMarks[i - 1][1] = studentMarks[i][1];
+                    studentMarks[i][1] = tempDbms;
+
+                    String tempId = student[i - 1][0];
+                    student[i - 1][0] = student[i][0];
+                    student[i][0] = tempId;
+
+                    String tempName = student[i - 1][1];
+                    student[i - 1][1] = student[i][1];
+                    student[i][1] = tempName;
+
+                    int tempTot = total[i - 1];
+                    total[i - 1] = total[i];
+                    total[i] = tempTot;
+                }
+            }
+        }
+        System.out.println("+-------+----------------------------------------------------------------+-----------+----------+");
+        System.out.println("|ID     |Name                                                            |PF Marks   |DBMS Marks|");
+        System.out.println("+-------+----------------------------------------------------------------+-----------+----------+");
+        for (int j = 0; j < student.length; j++) {
+            if (total[j] != 0) {
+                System.out.println("|" + student[j][0] + "   |" + student[j][1] + "\t\t\t\t\t\t\t\t |" + studentMarks[j][0] + "         |" + studentMarks[j][1] + "        |");
+            }
+        }
+        System.out.println("+-------+----------------------------------------------------------------+-----------+----------+");
+
+        System.out.print("Do you want to go back main menu? (Y/n) ");
+        char operate = scanner.next().charAt(0);
+        if (operate == 'y') {
+            clearConsole();
+
+        } else if (operate == 'Y') {
+            clearConsole();
+
+        } else if (operate == 'n') {
+            clearConsole();
+            printBestInPrf(student, studentMarks, total);
+        }
+    }
+
+    public static void printBestInDbms(String[][] student, int[][] studentMarks, int[] total) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("|\t\t\t\tBEST IN DATABASE MANAGEMENT SYSTEM\t\t\t|");
+        System.out.println("-----------------------------------------------------------------------------------------\n");
+
+        for (int j = 0; j < studentMarks.length; j++) {
+            for (int i = studentMarks.length - 1; 0 < i; i--) {
+                if (studentMarks[i - 1][1] < studentMarks[i][1]) {
+                    int tempPrf = studentMarks[i - 1][0];
+                    studentMarks[i - 1][0] = studentMarks[i][0];
+                    studentMarks[i][0] = tempPrf;
+
+                    int tempDbms = studentMarks[i - 1][1];
+                    studentMarks[i - 1][1] = studentMarks[i][1];
+                    studentMarks[i][1] = tempDbms;
+
+                    String tempId = student[i - 1][0];
+                    student[i - 1][0] = student[i][0];
+                    student[i][0] = tempId;
+
+                    String tempName = student[i - 1][1];
+                    student[i - 1][1] = student[i][1];
+                    student[i][1] = tempName;
+
+                    int tempTot = total[i - 1];
+                    total[i - 1] = total[i];
+                    total[i] = tempTot;
+                }
+            }
+        }
+        System.out.println("+-------+----------------------------------------------------------------+-----------+----------+");
+        System.out.println("|ID     |Name                                                            |DBMS Marks |PF Marks  |");
+        System.out.println("+-------+----------------------------------------------------------------+-----------+----------+");
+        for (int j = 0; j < student.length; j++) {
+            if (total[j] != 0) {
+                System.out.println("|" + student[j][0] + "   |" + student[j][1] + "\t\t\t\t\t\t\t\t |" + studentMarks[j][1] + "         |" + studentMarks[j][0] + "        |");
+            }
+        }
+        System.out.println("+-------+----------------------------------------------------------------+-----------+----------+");
+
+        System.out.print("Do you want to go back main menu? (Y/n) ");
+        char operate = scanner.next().charAt(0);
+        if (operate == 'y') {
+            clearConsole();
+
+        } else if (operate == 'Y') {
+            clearConsole();
+
+        } else if (operate == 'n') {
+            clearConsole();
+            printBestInDbms(student, studentMarks, total);
+        }
+    }
 
     public final static void clearConsole() {
         try {
