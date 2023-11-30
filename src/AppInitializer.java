@@ -61,6 +61,10 @@ public class AppInitializer {
                     clearConsole();
                     printStudentDetails(student, studentMarks, total, average);
                     break;
+                case 8:
+                    clearConsole();
+                    printStudentRanks(student, studentMarks, total, average);
+                    break;
             }
         }
     }
@@ -567,6 +571,85 @@ public class AppInitializer {
                 clearConsole();
             }
         }
+    }
+
+    public static void printStudentRanks(String[][] student, int[][] studentMarks, int[] total, double[] average) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("|\t\t\t\t\tPRINT STUDENTS' RANKS\t\t\t\t|");
+        System.out.println("-----------------------------------------------------------------------------------------\n");
+
+
+        for (int i = 0; i < total.length; i++) {
+            total[i] = studentMarks[i][0] + studentMarks[i][1];
+            average[i] = total[i] / 2.0;
+        }
+        for (int i = 0; i < student.length; i++) {
+            for (int j = total.length - 1; j > 0; j--) {
+                if (total[j - 1] < total[j]) {
+                    int tempTot = total[j - 1];
+                    total[j - 1] = total[j];
+                    total[j] = tempTot;
+
+                    double tempAvg = average[j - 1];
+                    average[j - 1] = average[j];
+                    average[j] = tempAvg;
+
+                    String tempId = student[j - 1][0];
+                    student[j - 1][0] = student[j][0];
+                    student[j][0] = tempId;
+
+                    String tempName = student[j - 1][1];
+                    student[j - 1][1] = student[j][1];
+                    student[j][1] = tempName;
+
+                    int tempPrf = studentMarks[j - 1][0];
+                    studentMarks[j - 1][0] = studentMarks[j][0];
+                    studentMarks[j][0] = tempPrf;
+
+                    int tempDbms = studentMarks[j - 1][1];
+                    studentMarks[j - 1][1] = studentMarks[j][1];
+                    studentMarks[j][1] = tempDbms;
+                }
+            }
+        }
+        int[] rank = new int[100];
+        for (int i = 0; i < rank.length; i++) {
+            rank[i] = i;
+        }
+        int k = 0, j = 1;
+        for (int i = 0; i < total.length; i++) {
+            for (j = k + 1; j < total.length; j++) {
+                if (total[i] == total[j]) {
+                    rank[j] = i;
+                    k++;
+                }
+            }
+        }
+
+
+        System.out.println("+-------+-----+----------------------------------------------------------+-----------+----------+");
+        System.out.println("|Rank   |ID   |Name                                                      |Total Marks|Avg. Marks|");
+        System.out.println("+-------+-----+----------------------------------------------------------+-----------+----------+");
+        for (int i = 0; i < student.length; i++) {
+            if (total[i] != 0) {
+                System.out.println("|" + (rank[i] + 1) + "\t|" + student[i][0] + " |" + student[i][1] + "\t\t\t\t\t\t\t |\t " + total[i] + " |\t    " + average[i] + "|");
+            }
+        }
+        System.out.println("+-------+-----+----------------------------------------------------------+-----------+----------+");
+        System.out.print("Do you want to go back main menu? (Y/n) ");
+        char operate = scanner.next().charAt(0);
+        if (operate == 'y') {
+            clearConsole();
+
+        } else if (operate == 'Y') {
+            clearConsole();
+
+        } else if (operate == 'n') {
+            clearConsole();
+            printStudentRanks(student, studentMarks, total, average);
+        }
+
     }
 
 
