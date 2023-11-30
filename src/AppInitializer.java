@@ -9,6 +9,8 @@ public class AppInitializer {
     public static void main(String[] args) {
         String[][] student = new String[100][2];
         int[][] studentMarks = new int[100][2];
+        int[] total = new int[100];
+        double[] average = new double[100];
 
         int i = 0;
         while (true) {
@@ -54,6 +56,10 @@ public class AppInitializer {
                 case 6:
                     clearConsole();
                     deleteStudent(student, studentMarks);
+                    break;
+                case 7:
+                    clearConsole();
+                    printStudentDetails(student, studentMarks, total, average);
                     break;
             }
         }
@@ -399,10 +405,10 @@ public class AppInitializer {
                 }
             }
 
-            student[index][0]=null;
-            student[index][1]=null;
-            studentMarks[index][0]=0;
-            studentMarks[index][1]=0;
+            student[index][0] = null;
+            student[index][1] = null;
+            studentMarks[index][0] = 0;
+            studentMarks[index][1] = 0;
 
             System.out.println("Student has been Deleted successfully.\nDo you want to deleted another student? (Y/n) ");
             char operate = scanner.next().charAt(0);
@@ -429,6 +435,140 @@ public class AppInitializer {
             }
         }
     }
+
+
+    public static void printStudentDetails(String[][] student, int[][] studentMarks, int[] total, double[] average) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println("|\t\t\t\t\tPRINT STUDENT DETAILS\t\t\t\t|");
+        System.out.println("-----------------------------------------------------------------------------------------\n");
+
+        System.out.print("Enter Student ID    : ");
+        String id = scanner.next();
+        boolean isDuplicate = checkDuplicate(student, id);
+
+        int index = 0;
+
+        if (isDuplicate) {
+            for (int j = 0; j < student.length; j++) {
+                while (id.equals(student[j][0])) {
+                    index = j;
+                    break;
+                }
+            }
+
+            System.out.println("Student Name  : " + student[index][1]);
+
+            if (studentMarks[index][0] == 0 && studentMarks[index][1] == 0) {
+                System.out.println("This student's marks yet to be added.\nDo you want to update the marks of another student? (Y/n) ");
+                char operate = scanner.next().charAt(0);
+                if (operate == 'y') {
+                    clearConsole();
+                    printStudentDetails(student, studentMarks, total, average);
+                } else if (operate == 'Y') {
+                    clearConsole();
+                    printStudentDetails(student, studentMarks, total, average);
+                } else if (operate == 'n') {
+
+                }
+            } else {
+                int tot = 0;
+                for (int i = 0; i < total.length; i++) {
+                    total[i] = studentMarks[i][0] + studentMarks[i][1];
+                    average[i] = total[i] / 2.0;
+                }
+                tot = total[index];
+
+                System.out.println("+----------------------------------+---------------------------+");
+                System.out.println("| Programming Fundamentals Marks   |\t\t\t    " + studentMarks[index][0] + " |");
+                System.out.println("| Database Management System Marks |\t\t\t    " + studentMarks[index][1] + " |");
+                System.out.println("| Total Marks  \t\t\t   |\t\t\t   " + total[index] + " |");
+                System.out.println("| avg. Marks  \t\t\t   |\t\t\t  " + average[index] + " |");
+                for (int i = 0; i < student.length; i++) {
+                    for (int j = total.length - 1; j > 0; j--) {
+                        if (total[j - 1] < total[j]) {
+                            int tempTot = total[j - 1];
+                            total[j - 1] = total[j];
+                            total[j] = tempTot;
+
+                            double tempAvg = average[j - 1];
+                            average[j - 1] = average[j];
+                            average[j] = tempAvg;
+
+                            String tempId = student[j - 1][0];
+                            student[j - 1][0] = student[j][0];
+                            student[j][0] = tempId;
+
+                            String tempName = student[j - 1][1];
+                            student[j - 1][1] = student[j][1];
+                            student[j][1] = tempName;
+
+                            int tempPrf = studentMarks[j - 1][0];
+                            studentMarks[j - 1][0] = studentMarks[j][0];
+                            studentMarks[j][0] = tempPrf;
+
+                            int tempDbms = studentMarks[j - 1][1];
+                            studentMarks[j - 1][1] = studentMarks[j][1];
+                            studentMarks[j][1] = tempDbms;
+
+                        }
+                    }
+                }
+                int rank = 0;
+                for (int i = 0; i < total.length; i++) {
+                    if (tot == total[i]) {
+                        rank = i;
+                        break;
+                    }
+                }
+                if (rank == 0) {
+                    System.out.println("| Rank  \t\t\t   |\t\t       " + (rank + 1) + "(First)" + "|");
+                    System.out.println("+----------------------------------+---------------------------+");
+                } else if (rank == 1) {
+                    System.out.println("| Rank  \t\t\t   |\t\t      " + (rank + 1) + "(Second)" + "|");
+                    System.out.println("+----------------------------------+---------------------------+");
+                } else if (rank == 2) {
+                    System.out.println("| Rank  \t\t\t   |\t\t       " + (rank + 1) + "(Third)" + "|");
+                    System.out.println("+----------------------------------+---------------------------+");
+                } else if (rank == 99) {
+                    System.out.println("| Rank  \t\t\t   |\t\t        " + (rank + 1) + "(Last)" + "|");
+                    System.out.println("+----------------------------------+---------------------------+");
+                } else {
+
+                    System.out.println("| Rank  \t\t\t   |\t\t\t     " + (rank + 1) + " |");
+                    System.out.println("+----------------------------------+---------------------------+");
+                    System.out.println();
+                }
+
+            }
+
+
+            System.out.println("\nDo you want to search another student details? (Y/n) ");
+            char operate = scanner.next().charAt(0);
+            if (operate == 'y') {
+                clearConsole();
+                printStudentDetails(student, studentMarks, total, average);
+            } else if (operate == 'Y') {
+                clearConsole();
+                printStudentDetails(student, studentMarks, total, average);
+            } else if (operate == 'n') {
+
+            }
+        } else {
+            System.out.print("Invalid Student ID. Do you want to search again? (Y/n): ");
+            char operate = scanner.next().charAt(0);
+            if (operate == 'y') {
+                clearConsole();
+                printStudentDetails(student, studentMarks, total, average);
+            } else if (operate == 'Y') {
+                clearConsole();
+                printStudentDetails(student, studentMarks, total, average);
+            } else if (operate == 'n') {
+                clearConsole();
+            }
+        }
+    }
+
 
     public final static void clearConsole() {
         try {
